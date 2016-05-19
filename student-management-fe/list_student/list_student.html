@@ -1,0 +1,76 @@
+<h2>Users Management</h2>
+<a ng-hide="is_authenticated" href="#/login" class="btn btn-default">Login</a>
+<a ng-show="is_authenticated" ng-click="logout()" class="btn btn-default">Logout</a>
+<hr>
+<div ng-show="is_authenticated">
+  <div class="row">
+    <div class="col-md-12">
+      <form name="addUserFrm" ng-submit="addStudent()">
+        <div class="form-group">
+          <label for="student_name">Name</label>
+          <input type="text" class="form-control" id="student_name" placeholder="Name" ng-model="student_info.name">
+        </div>
+        <div class="form-group">
+          <label for="student_age">Phone</label>
+          <input type="text" class="form-control" id="student_phone" placeholder="Phone" ng-model="student_info.phone">
+        </div>
+        <div class="form-group">
+          <label for="student_address">Email Address</label>
+          <input type="email" class="form-control" id="student_gender" placeholder="Email Address" ng-model="student_info.address">
+        </div>
+        <div class="form-group">
+          <label for="student_country">Career</label>
+          <select class="form-control" ng-model="student_info.career">
+            <option value='engineering'>Engineering</option>
+            <option value='math'>Math</option>
+            <option value='physic'>Physic</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-default">Add</button>
+      </form>
+    </div>
+  </div>
+  <hr>
+</div>
+<div class="row" ng-hide="students.length == 0">
+  <div class="col-md-4">
+    <div class="form-group">
+      <label>Search</label>
+      <input type="search" class="form-control" ng-model="student_search" />
+    </div>
+    <div class="form-group">
+      <label>Order</label>
+      
+      <select class="form-control"
+        ng-init="order_type = order_options[0]" 
+        ng-model="order_type"
+        ng-options="option.name for option in order_options track by option.value">
+      </select>
+    </div>
+  </div>
+  <div class="col-md-12">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Phone</th>
+          <th>Email Address</th>
+          <th>Career</th>
+          <th ng-show="is_authenticated">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="student in students | filter:student_search | orderBy:order_type.value">
+          <td>{{ student.name }}</td>
+          <td>{{ student.phone }}</td>
+          <td>{{ student.address }}</td>
+          <td>{{ student.career }}</td>
+          <td ng-show="is_authenticated">
+            <a href="#/edit/{{ student.id }}">Edit</a> |
+            <a href="#/delete/{{ student.id }}">Delete</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
