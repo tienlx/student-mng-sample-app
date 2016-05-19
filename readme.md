@@ -1,4 +1,5 @@
-## Student Management Backend
-Written by Lumen Framework
+## Student Management
+Written by Lumen Framework (back-end) and Angular JS 1.5.5 (front-end)
 
-(cont)
+Install:
+(update later)
